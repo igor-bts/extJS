@@ -18,6 +18,8 @@ Ext.define('Product', {
         }]
 });
 
+
+
 Ext.onReady(function() {
 
     var store = Ext.create('Ext.data.Store', {
@@ -50,20 +52,24 @@ Ext.onReady(function() {
     var rowEditing = Ext.create('Ext.grid.plugin.RowEditing');
 
     var grid = Ext.create('Ext.grid.Panel', {
-        renderTo: document.body,
+        renderTo: 'myId',
         plugins: [rowEditing],
-        width: 400,
-        height: 300,
+        width: 1000,
+        height: 200,
+        style: 'margin:0 auto;margin-top:5px;',
         frame: true,
-        title: 'Products',
+        title: 'Productos',
         store: store,
         columns: [{
                 text: 'ID',
                 width: 40,
                 sortable: true,
-                dataIndex: 'id'
+                dataIndex: 'id',
+                field: {
+                        xtype: 'textfield'
+                   		}
             }, {
-                text: 'Name',
+                text: 'Nombre',
                 flex: 1,
                 sortable: true,
                 dataIndex: 'name',
@@ -71,7 +77,7 @@ Ext.onReady(function() {
                     xtype: 'textfield'
                 }
             }, {
-                header: 'Price',
+                header: 'Precio',
                 width: 80,
                 sortable: true,
                 dataIndex: 'price',
@@ -82,15 +88,16 @@ Ext.onReady(function() {
         dockedItems: [{
                 xtype: 'toolbar',
                 items: [{
-                        text: 'Add',
+                        text: 'Agregar',
                         iconCls: 'icon-add',
                         handler: function() {
                             // empty record
                             store.insert(0, new Product());
                             rowEditing.startEdit(0, 0);
                         }
+                
                     }, '-', {
-                        text: 'Delete',
+                        text: 'Borrar',
                         iconCls: 'icon-delete',
                         handler: function() {
                             var selection = grid.getView().getSelectionModel().getSelection()[0];

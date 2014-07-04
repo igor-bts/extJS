@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd" id="WebApp_ID" version="3.0">
-  <display-name>MyProducts</display-name>
+  <display-name>RedHatStore</display-name>
   <welcome-file-list>
     <welcome-file>index.html</welcome-file>
     <welcome-file>index.htm</welcome-file>
@@ -9,4 +9,78 @@
     <welcome-file>default.htm</welcome-file>
     <welcome-file>default.jsp</welcome-file>
   </welcome-file-list>
+  
+  
+   <display-name>PicketLink Sample Service Provider</display-name>
+
+    <description>PicketLink Service Provider With a Basic Configuration using SAML HTTP POST Binding</description>
+
+	<!-- Define a Security Constraint on this Application -->
+	<security-constraint>
+		<web-resource-collection>
+			<web-resource-name>sp</web-resource-name>
+			<url-pattern>/*</url-pattern>
+		</web-resource-collection>
+		<auth-constraint>
+			<role-name>manager,Internal/everyone</role-name>
+		</auth-constraint>
+	</security-constraint>
+
+	<!-- Define a security constraint that gives unlimited access to freezone 
+	<security-constraint>
+		<web-resource-collection>
+			<web-resource-name>freezone</web-resource-name>
+			<url-pattern>/freezone/*</url-pattern>
+		</web-resource-collection>
+		<web-resource-collection>
+			<web-resource-name>images</web-resource-name>
+			<url-pattern>/images/*</url-pattern>
+		</web-resource-collection>
+		<web-resource-collection>
+			<web-resource-name>css</web-resource-name>
+			<url-pattern>/css/*</url-pattern>
+		</web-resource-collection>
+	</security-constraint>
+	-->
+
+    <!-- Define the Login Configuration for this Application --> 
+    <login-config>
+		<auth-method>FORM</auth-method>
+		<realm-name>sp</realm-name>
+		<form-login-config>
+			<form-login-page>/jsp/login.jsp</form-login-page>
+			<form-error-page>/jsp/login-error.jsp</form-error-page>
+		</form-login-config>
+	</login-config>
+	
+	<!-- Security roles referenced by this web application -->
+	<security-role>
+		<description>The role that is required to log in to the Manager Application</description>
+		<role-name>manager,Internal/everyone</role-name>
+	</security-role>
+	
+	<servlet>
+	  <description>Auxiliar</description>
+	  <display-name>Auxiliar</display-name>
+	  <servlet-name>Auxiliar</servlet-name>
+	  <servlet-class>com.myProducts.controller.Auxiliar</servlet-class>
+	</servlet>
+	
+	<servlet>
+	  <description>SinSeguridad</description>
+	  <display-name>SinSeguridad</display-name>
+	  <servlet-name>SinSeguridad</servlet-name>
+	  <servlet-class>com.myProducts.controller.SinSeguridad</servlet-class>
+	</servlet>
+	
+	<servlet-mapping>
+	  <servlet-name>Auxiliar</servlet-name>
+	  <url-pattern>/Auxiliar</url-pattern>
+	</servlet-mapping>
+	
+	<servlet-mapping>
+	  <servlet-name>SinSeguridad</servlet-name>
+	  <url-pattern>/SinSeguridad</url-pattern>
+	</servlet-mapping>
+  
 </web-app>
